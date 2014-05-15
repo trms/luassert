@@ -1,0 +1,49 @@
+nuget {
+	nuspec {
+		id = luassert;
+		title: luassert;
+		version: 1.7.0.3;
+		authors: {coapp, Olivine Labs, Christian Bechette, Tightrope Media Systems};
+		owners: {Olivine Labs};
+
+		licenseUrl: "http://opensource.org/licenses/MIT";
+		projectUrl: "https://github.com/Olivine-Labs/luassert";
+		copyright: "Copyright (C) 2014 Olivine Labs";
+		
+		requireLicenseAcceptance: false;
+		summary: "luassert extends Lua's built-in assertions to provide additional tests and the ability to create your own.";
+		releaseNotes: @"https://github.com/Olivine-Labs/luassert/issues"; 
+		description: @"luassert extends Lua's built-in assertions to provide additional tests and the ability to create your own.";
+		tags: {native, Lua, module};
+	}
+	dependencies {
+        // This node defines any outside items which may be needed to consume this package.
+        packages : {
+            // This is a list of other NuGet packages required to use this package.
+            // Each item follows the format "<pkg_name>/<version>"
+            lua/"[5.1, 5.4)",
+        };
+    }
+	files {
+		// declare a lua collection
+		lua : {
+			// copies the whole folder tree.
+			
+			#add-all-files : Items.luassertDir;
+			// set the destination in the package itself. 
+			#destination : ${build_root}\luassert;
+		};
+		
+		lua: {"src\**\*.lua"};
+    }
+
+    targets {
+		AfterBuild {
+			.Copy {
+				DestinationFiles = "@(luassertDir->'$(TargetDir)luassert\%(RecursiveDir)%(Filename)%(Extension)')";
+				SourceFiles = "@(luassertDir)";
+				SkipUnchangedFiles = true;
+			};
+		};
+	}
+}
