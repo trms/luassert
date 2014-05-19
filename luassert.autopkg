@@ -2,7 +2,7 @@ nuget {
 	nuspec {
 		id = luassert;
 		title: luassert;
-		version: 1.7.0.3;
+		version: 1.7.0.5;
 		authors: {coapp, Olivine Labs, Christian Bechette, Tightrope Media Systems};
 		owners: {Olivine Labs};
 
